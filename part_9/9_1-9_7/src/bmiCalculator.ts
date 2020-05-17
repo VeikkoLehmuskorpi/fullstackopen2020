@@ -22,4 +22,34 @@ const calculateBmi = (height: number, weight: number): string => {
   }
 };
 
-console.log(calculateBmi(180, 74));
+interface CalculatorArguments {
+  value1: number;
+  value2: number;
+}
+
+const parseCalbulatorArguments = (args: Array<string>): CalculatorArguments => {
+  if (args.length < 4) {
+    throw new Error('Too few arguments!');
+  }
+  if (args.length > 4) {
+    throw new Error('Too many arguments!');
+  }
+
+  if (!isNaN(Number(args[2])) && !isNaN(Number(args[3]))) {
+    return {
+      value1: Number(args[2]),
+      value2: Number(args[3]),
+    };
+  } else {
+    throw new Error('Provided arguments were not valid numbers!');
+  }
+};
+
+try {
+  const { value1: height, value2: weight } = parseCalbulatorArguments(
+    process.argv
+  );
+  console.log(calculateBmi(height, weight));
+} catch (err) {
+  console.error('Error parsing arguments:', err.message);
+}

@@ -46,4 +46,37 @@ const calculateExercises = (
   };
 };
 
-console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2));
+const isValidNumber = (value: any) => {
+  return !isNaN(Number(value));
+};
+
+interface ExerciseArguments {
+  target: number;
+  exerciseHours: Array<number>;
+}
+
+const parseExerciseArguments = (
+  arguments: Array<string>
+): ExerciseArguments => {
+  if (arguments.length < 4) {
+    throw new Error('Too few arguments!');
+  }
+
+  const [exec, file, target, ...exerciseHours] = arguments;
+
+  if (isValidNumber(target) && exerciseHours.every(isValidNumber)) {
+    return {
+      target: Number(target),
+      exerciseHours: exerciseHours.map(hour => Number(hour)),
+    };
+  } else {
+    throw new Error('Provided arguments were not valid numbers!');
+  }
+};
+
+try {
+  const { target, exerciseHours } = parseExerciseArguments(process.argv);
+  console.log(calculateExercises(exerciseHours, target));
+} catch (err) {
+  console.error('Error parsing arguments:', err.message);
+}
