@@ -8,7 +8,7 @@ interface ExercisesResult {
   average: number;
 }
 
-const calculateExercises = (
+export const calculateExercises = (
   exerciseHours: number[],
   target: number
 ): ExercisesResult => {
@@ -55,7 +55,9 @@ interface ExerciseArguments {
   exerciseHours: Array<number>;
 }
 
-const parseExerciseArguments = (args: Array<string>): ExerciseArguments => {
+export const parseExerciseArguments = (
+  args: Array<string>
+): ExerciseArguments => {
   if (args.length < 4) {
     throw new Error('Too few arguments!');
   }
