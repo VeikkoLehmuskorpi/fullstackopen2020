@@ -1,4 +1,4 @@
-const calculateBmi = (height: number, weight: number): string => {
+export const calculateBmi = (height: number, weight: number): string => {
   const bodyMassIndex = Number(((weight / (height * 2)) * 100).toFixed(1));
 
   if (bodyMassIndex < 18.5) {
@@ -27,7 +27,9 @@ interface CalculatorArguments {
   value2: number;
 }
 
-const parseCalbulatorArguments = (args: Array<string>): CalculatorArguments => {
+export const parseCalculatorArguments = (
+  args: Array<string>
+): CalculatorArguments => {
   if (args.length < 4) {
     throw new Error('Too few arguments!');
   }
@@ -46,7 +48,7 @@ const parseCalbulatorArguments = (args: Array<string>): CalculatorArguments => {
 };
 
 try {
-  const { value1: height, value2: weight } = parseCalbulatorArguments(
+  const { value1: height, value2: weight } = parseCalculatorArguments(
     process.argv
   );
   console.log(calculateBmi(height, weight));
