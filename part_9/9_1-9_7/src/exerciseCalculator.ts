@@ -46,7 +46,7 @@ const calculateExercises = (
   };
 };
 
-const isValidNumber = (value: any) => {
+const isValidNumber = (value: number | string) => {
   return !isNaN(Number(value));
 };
 
@@ -55,14 +55,12 @@ interface ExerciseArguments {
   exerciseHours: Array<number>;
 }
 
-const parseExerciseArguments = (
-  arguments: Array<string>
-): ExerciseArguments => {
-  if (arguments.length < 4) {
+const parseExerciseArguments = (args: Array<string>): ExerciseArguments => {
+  if (args.length < 4) {
     throw new Error('Too few arguments!');
   }
 
-  const [exec, file, target, ...exerciseHours] = arguments;
+  const [, , target, ...exerciseHours] = args;
 
   if (isValidNumber(target) && exerciseHours.every(isValidNumber)) {
     return {
@@ -78,5 +76,5 @@ try {
   const { target, exerciseHours } = parseExerciseArguments(process.argv);
   console.log(calculateExercises(exerciseHours, target));
 } catch (err) {
-  console.error('Error parsing arguments:', err.message);
+  console.error('Error parsing arguments:', (err as Error).message);
 }

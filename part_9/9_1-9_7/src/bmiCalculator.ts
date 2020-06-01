@@ -53,5 +53,5 @@ try {
   );
   console.log(calculateBmi(height, weight));
 } catch (err) {
-  console.error('Error parsing arguments:', err.message);
+  console.error('Error parsing arguments:', (err as Error).message);
 }
