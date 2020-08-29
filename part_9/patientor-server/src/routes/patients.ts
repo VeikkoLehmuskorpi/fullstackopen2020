@@ -1,22 +1,23 @@
 import express, { Request, Response } from 'express';
 import patientService from '../services/patientService';
+import { toNewPatient } from '../utils';
 
 const router = express.Router();
 
 router.get('/', (_req: Request, res: Response) => {
   const patients = patientService.getNonSensitivePatients();
 
-  res.json(patients);
+  res.send(patients);
 });
 
 router.post('/', (req: Request, res: Response) => {
   try {
-    const newPatient = patientService.addPatient(req.body);
+    const newPatient = toNewPatient(req.body);
+    const addedPatient = patientService.addPatient(newPatient);
 
-    res.json(newPatient);
+    res.send(addedPatient);
   } catch (err) {
-    console.error('Error adding new patient:', err);
-    res.status(400).send('Failed to add new patient');
+    res.status(400).send(err.message);
   }
 });
 

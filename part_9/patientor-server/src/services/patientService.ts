@@ -1,5 +1,6 @@
 import patientsData from '../data/patients';
-import { Patient, NewPatient } from '../types';
+import { Patient, NonSensitivePatient, NewPatient } from '../types';
+import { v4 as uuidv4 } from 'uuid';
 
 const getPatients = (): Array<Patient> => patientsData;
 
@@ -13,7 +14,7 @@ const getNonSensitivePatients = (): Array<NonSensitivePatient> => {
 
 const addPatient = (patient: NewPatient): Patient => {
   const newPatient = {
-    id: Math.max(...patientsData.map(patient => patient.id)) + 1,
+    id: uuidv4(),
     ...patient,
   };
 
