@@ -1,5 +1,10 @@
 import { Gender } from '../types';
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+
 const isString = (text: any): boolean => {
   const isString = typeof text === 'string' || text instanceof String;
 
@@ -12,7 +17,7 @@ const isDate = (date: any): boolean => {
   return isDate;
 };
 
-const isGender = (gender: any): boolean => {
+const isGender = (gender: any): gender is Gender => {
   const isGender = Object.values(Gender).includes(gender);
 
   return isGender;
